@@ -1,15 +1,66 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Card } from "./components/Card.jsx";
+import { useState } from "react";
 import { PkmnList } from "./components/PkmnList.jsx";
+
+const tool = 2;
+
 function App() {
-  //YOU HAVE TO IMPLEMENT GET
+  const [yourName, setYourName] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [secondPhase, setSecondPhase] = useState(false);
+
+  const yourNameSent = (event) => {
+    event.preventDefault();
+    setYourName(yourName);
+    console.log("You'll name as Pkmn trainer will be: " + yourName);
+    setSecondPhase(true);
+  };
+
+  const yourNameHandler = (event) => {
+    setYourName(event.target.value);
+
+    if (event.target.value.length >= 5) {
+      setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
+    }
+  };
+
   return (
-    <>
-      {" "}
-      <PkmnList list={list} />{" "}
-    </>
+    <div>
+      {!secondPhase && ( //--->once i Click on the button the form will fade!
+        <form onSubmit={yourNameSent}>
+          <div className="p-3 d-inline-flex flex-column gap-2">
+            <label htmlFor="trainerId">
+              <h5>What's your name?</h5>
+            </label>
+            <input
+              type="text"
+              id="trainerId"
+              name="trainerId"
+              value={yourName}
+              onChange={yourNameHandler}
+            />
+            <button className="btn btn-dark btn-sm" disabled={isButtonDisabled}>
+              OK
+            </button>
+          </div>
+        </form>
+      )}
+      {secondPhase && (
+        <section>
+          <div className="p-2 d-flex flex-column align-items-center">
+            <p>Okay {yourName}...</p>
+            <p>Pick up your team!</p>
+          </div>
+
+          <PkmnList list={list} />
+        </section>
+      )}
+    </div>
   );
 }
+//DO THE GET AND MAKE BUTTONS
 
 const list = {
   pokedex: [
