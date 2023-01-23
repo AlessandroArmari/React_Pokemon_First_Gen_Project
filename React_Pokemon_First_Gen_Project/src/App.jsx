@@ -23,7 +23,7 @@ function App() {
       setIsButtonDisabled(true);
     }
   };
-
+  //+++add on loading with "if" and "return"
   return (
     <div>
       {!secondPhase && ( //--->once i Click on the button the form will fade!
@@ -52,7 +52,9 @@ function App() {
             <p>Pick up your team!</p>
           </div>
 
-          <PkmnList list={list} />
+          <div className="d-flex flex-column align-items-center">
+            <PkmnList list={list} />
+          </div>
         </section>
       )}
     </div>

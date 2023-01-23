@@ -3,24 +3,41 @@ import { Card } from "./Card";
 
 const PkmnList = (props) => {
   const [teamDisplay, setTeamDisplay] = useState(false);
-  const [firstPkmn, setFirstPkmn] = useState("");
+  const [teamArray, setArrayTeam] = useState([]); //---> the team is an array filled by the pkmn I clik on!
+  const [teamCounterUpTo6, setTeamUpTo6] = useState(1); //---> I control my max team length
 
-  const addPkmnOnClickFunction = (event) => {
-    setTeamDisplay(true);
-    console.log("You chose " + event.target.name.value); //ISSUES HERE!
-    setFirstPkmn(event.target.sprite);
+  const addPkmnOnClickFunction = (elem) => {
+    console.log(teamCounterUpTo6);
+    setTeamDisplay(true); //--->once I click first time, show the team-box
+    console.log("You chose " + elem.name);
+    setArrayTeam((current) => [...current, elem.sprite]); // I fill an array pushing in the sprites
+    setTeamUpTo6(teamCounterUpTo6 + 1);
+    console.log(teamCounterUpTo6);
   };
+
+  if (teamCounterUpTo6 > 10) {
+    return <div>dio</div>;
+  }
+
   return (
     <>
       {teamDisplay && (
-        <section className="m-4 d-flex flex-column align-items-center border border-3 border-danger rounded ">
-          <h3>Your Team</h3>
-          <div>
-            <img
-              src={firstPkmn}
-              alt="firstPkmn"
-              className="mb-1 border border-2 border-primary rounded"
-            />
+        <section className="w-75 m-1 d-flex flex-column align-items-center border border-5 border-danger rounded ">
+          <h3 className="bg-danger rounded p-1 mt-1 d-inline">Your Team</h3>
+
+          <div className="container ">
+            <div className="row p-2 ">
+              {teamArray.map((elem, index) => {
+                return (
+                  <img
+                    key={index}
+                    src={elem}
+                    alt="teamArray"
+                    className="col-2 mb-2 p-2 "
+                  ></img>
+                );
+              })}
+            </div>
           </div>
         </section>
       )}
@@ -30,7 +47,11 @@ const PkmnList = (props) => {
             return (
               <Card
                 key={index}
-                addPkmnOnClick={addPkmnOnClickFunction}
+                addPkmnOnClick={() => {
+                  addPkmnOnClickFunction(elem);
+                }} // now I've passed "elem" to line "8"--->  STUDY!
+                // use array + push!!! to create a team!
+                //ADD POINTER BEHAVE
                 sprite={elem.sprite}
                 name={elem.name}
                 number={elem.number}
