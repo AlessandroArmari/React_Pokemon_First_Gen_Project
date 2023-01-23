@@ -53,11 +53,22 @@ function App() {
     }
   };
 
+  let final;
+
+  //Conditional (ternary) operator HERE
+  isLoading == true
+    ? (final = <div>Is Loading</div>)
+    : (final = <div>xxx</div>);
+
+  /* 
+  IS THE SAME AS ABOVE!!!
+
   let final = <div>Not Ready</div>;
 
   if (isLoading == true) {
     final = <div>Is Loading</div>;
   }
+  */
 
   if (pokedex.length > 0) {
     final = <PkmnList list={pokedex} />;
