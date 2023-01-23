@@ -2,8 +2,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import { PkmnList } from "./components/PkmnList.jsx";
 
-const tool = 2;
-
 function App() {
   const [yourName, setYourName] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
