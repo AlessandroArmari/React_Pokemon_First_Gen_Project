@@ -5,6 +5,9 @@ import { PkmnList } from "./components/PkmnList.jsx";
 function App() {
   const [yourName, setYourName] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [pokedex, setPokedex] = useState([]);
   const [secondPhase, setSecondPhase] = useState(false);
 
   const yourNameSent = (event) => {
@@ -23,12 +26,48 @@ function App() {
       setIsButtonDisabled(true);
     }
   };
-  //+++add on loading with "if" and "return"
+
+  const fetchHandler = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await fetch(
+        "https://8a61f3a8-11ec-4304-8e97-e2bc1c1eec61.mock.pstmn.io/pokedex"
+      );
+      if (!response.ok)
+        throw new Error("Something went wrong! Probably wrong URL!");
+
+      const data = await response.json();
+      const transformedPkmn = data.pokedex.map((elem, index) => {
+        return {
+          name: elem.name,
+          number: elem.number,
+          type: elem.type,
+          sprite: elem.sprite,
+        };
+      });
+      setPokedex(transformedPkmn);
+    } catch (error) {
+      setError(error.message);
+      console.log(error);
+    }
+  };
+
+  let final = <div>Not Ready</div>;
+
+  if (isLoading == true) {
+    final = <div>Is Loading</div>;
+  }
+
+  if (pokedex.length > 0) {
+    final = <PkmnList list={pokedex} />;
+  }
+
   return (
     <div>
       {!secondPhase && ( //--->once i Click on the button the form will fade!
         <form onSubmit={yourNameSent}>
-          <div className="p-3 d-inline-flex flex-column gap-2">
+          <div className="p-2 d-flex flex-column gap-3 align-items-center">
             <label htmlFor="trainerId">
               <h5>What's your name?</h5>
             </label>
@@ -39,7 +78,10 @@ function App() {
               value={yourName}
               onChange={yourNameHandler}
             />
-            <button className="btn btn-dark btn-sm" disabled={isButtonDisabled}>
+            <button
+              className=" w-25 btn btn-dark btn-sm"
+              disabled={isButtonDisabled}
+            >
               OK
             </button>
           </div>
@@ -50,18 +92,26 @@ function App() {
           <div className="p-2 d-flex flex-column align-items-center">
             <p>Okay {yourName}...</p>
             <p>Pick up your team!</p>
+            <button onClick={fetchHandler}>
+              Show First Generation Pokemon!
+            </button>
           </div>
 
-          <div className="d-flex flex-column align-items-center">
-            <PkmnList list={list} />
-          </div>
+          <div className="d-flex flex-column align-items-center">{final}</div>
         </section>
       )}
     </div>
   );
 }
-//DO THE GET AND MAKE BUTTONS
+export default App;
 
+//STYLE: LOADING AND NO FOUND
+//MAKE SPRITE CHANGING DIMENSION PROPERLY
+//SHOW POKEMON NAME
+//CREATE BACK END
+//GO ON...
+
+/*
 const list = {
   pokedex: [
     {
@@ -1274,5 +1324,4 @@ const list = {
     },
   ],
 };
-
-export default App;
+*/

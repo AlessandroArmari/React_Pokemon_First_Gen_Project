@@ -43,7 +43,7 @@ const PkmnList = (props) => {
       )}
       <ul className="container list-unstyled">
         <div className="row">
-          {props.list.pokedex.map((elem, index) => {
+          {props.list.map((elem, index) => {
             return (
               <Card
                 key={index}
