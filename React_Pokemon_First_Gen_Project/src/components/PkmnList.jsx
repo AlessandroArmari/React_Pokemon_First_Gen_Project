@@ -7,7 +7,7 @@ const PkmnList = (props) => {
 
   const addPkmnOnClickFunction = (event) => {
     setTeamDisplay(true);
-    console.log("You chose " + event.target.name.value); //sss
+    console.log("You chose " + event.target.name.value); //ISSUES HERE!
     setFirstPkmn(event.target.sprite);
   };
   return (
