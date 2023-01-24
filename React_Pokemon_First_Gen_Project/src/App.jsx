@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import { PkmnList } from "./components/PkmnList.jsx";
+import "./App.css";
 
 function App() {
   const [yourName, setYourName] = useState("");
@@ -58,7 +59,13 @@ function App() {
   let final;
 
   //Conditional (ternary) operator HERE
-  isLoading == true ? (final = <div>Is Loading</div>) : (final = <div></div>);
+  isLoading == true
+    ? (final = (
+        <div className="p-1 m-2 border border-2 border-dark rounded">
+          Is Loading...
+        </div>
+      ))
+    : (final = <div></div>);
 
   /* 
   IS THE SAME AS ABOVE!!!
@@ -104,7 +111,7 @@ function App() {
             <p>Okay {yourName},</p>
             <p>Choose your team!</p>
             <button
-              className="w-50 p-2 btn btn-dark btn-sm"
+              className="button w-50 p-2 btn btn-dark btn-sm"
               onClick={fetchHandler}
               disabled={isButton2Disabled}
             >
@@ -120,8 +127,8 @@ function App() {
 }
 export default App;
 
-//STYLE: LOADING AND NO FOUND
+//++++STYLE: LOADING AND NO FOUND
 //++++MAKE SPRITE CHANGING DIMENSION PROPERLY+++
-//SHOW POKEMON NAME
+//++++SHOW POKEMON NAME+++
 //CREATE BACK END
 //GO ON...

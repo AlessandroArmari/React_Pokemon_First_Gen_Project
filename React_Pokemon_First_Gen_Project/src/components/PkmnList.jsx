@@ -29,14 +29,14 @@ const PkmnList = (props) => {
               {teamArray.map((elem, index) => {
                 return (
                   <div
-                    className="col-2 p-1 d-flex flex-column align-items-center"
+                    className="col-2 p-1  align-items-center container"
                     key={index}
                   >
-                    <figure className="d-flex flex-column align-items-center">
+                    <figure className="d-flex flex-column align-items-center row">
                       <img
                         src={elem.sprite}
                         alt="teamArray"
-                        className="mb-1 p-2  "
+                        className=" col-8 mb-1 p-2  "
                       ></img>
                       <figcaption className="text-center">
                         {elem.name}
