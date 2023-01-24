@@ -109,7 +109,9 @@ function App() {
         <section>
           <div className="p-2 d-flex flex-column align-items-center">
             <p>Okay {yourName},</p>
-            <p>Choose your team!</p>
+            <p>
+              <strong>Choose your team!</strong>
+            </p>
             <button
               className="button w-50 p-2 btn btn-dark btn-sm"
               onClick={fetchHandler}
@@ -125,6 +127,7 @@ function App() {
     </div>
   );
 }
+
 export default App;
 
 //++++STYLE: LOADING AND NO FOUND
