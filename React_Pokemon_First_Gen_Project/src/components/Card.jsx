@@ -3,9 +3,9 @@ const Card = (props) => {
     <>
       <li
         onClick={props.addPkmnOnClick}
-        className="p-2 m-1 col-1 border border-2 border-primary rounded d-flex justify-content-around "
+        className="p-1 m-1 col-1 border border-2 border-primary rounded d-flex justify-content-around "
       >
-        <img className="p-2" src={props.sprite} alt={props.name} />
+        <img className="col-10" src={props.sprite} alt={props.name} />
       </li>
     </>
   );

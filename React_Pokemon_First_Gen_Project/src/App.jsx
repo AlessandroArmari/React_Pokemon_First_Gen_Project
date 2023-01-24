@@ -5,6 +5,7 @@ import { PkmnList } from "./components/PkmnList.jsx";
 function App() {
   const [yourName, setYourName] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [isButton2Disabled, setIsButton2Disabled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [pokedex, setPokedex] = useState([]);
@@ -46,7 +47,8 @@ function App() {
           sprite: elem.sprite,
         };
       });
-      setPokedex(transformedPkmn);
+      setPokedex(transformedPkmn); //---> go to line 73!
+      setIsButton2Disabled(true); //--->here I disabled this "fetch" button
     } catch (error) {
       setError(error.message);
       console.log(error);
@@ -56,9 +58,7 @@ function App() {
   let final;
 
   //Conditional (ternary) operator HERE
-  isLoading == true
-    ? (final = <div>Is Loading</div>)
-    : (final = <div>xxx</div>);
+  isLoading == true ? (final = <div>Is Loading</div>) : (final = <div></div>);
 
   /* 
   IS THE SAME AS ABOVE!!!
@@ -101,9 +101,13 @@ function App() {
       {secondPhase && (
         <section>
           <div className="p-2 d-flex flex-column align-items-center">
-            <p>Okay {yourName}...</p>
-            <p>Pick up your team!</p>
-            <button onClick={fetchHandler}>
+            <p>Okay {yourName},</p>
+            <p>Choose your team!</p>
+            <button
+              className="w-50 p-2 btn btn-dark btn-sm"
+              onClick={fetchHandler}
+              disabled={isButton2Disabled}
+            >
               Show First Generation Pokemon!
             </button>
           </div>
@@ -117,7 +121,7 @@ function App() {
 export default App;
 
 //STYLE: LOADING AND NO FOUND
-//MAKE SPRITE CHANGING DIMENSION PROPERLY
+//++++MAKE SPRITE CHANGING DIMENSION PROPERLY+++
 //SHOW POKEMON NAME
 //CREATE BACK END
 //GO ON...
